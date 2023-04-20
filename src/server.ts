@@ -1,21 +1,22 @@
-import fastify from 'fastify'
-import cookie from '@fastify/cookie'
+import { afterAll, beforeAll, test } from 'vitest'
+import request from 'supertest'
+import { app } from '../src/app'
 
-import { env } from './env'
-
-import { transactionsRoutes } from './routes/transactions'
-
-const app = fastify()
-
-app.register(cookie)
-app.register(transactionsRoutes, {
-  prefix: 'transactions',
+beforeAll(async () => {
+  await app.ready()
 })
 
-app
-  .listen({
-    port: env.PORT,
-  })
-  .then(() => {
-    console.log('HTTP Server Running!')
-  })
+afterAll(async () => {
+  await app.close()
+})
+
+test('use can create a new transaction', async () => {
+  await request(app.server)
+    .post('/transactions')
+    .send({
+      title: 'New transaction',
+      amount: 5000,
+      type: 'credit',
+    })
+    .expect(201)
+})
