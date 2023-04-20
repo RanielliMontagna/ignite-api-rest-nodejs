@@ -4,7 +4,10 @@
   "description": "",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "lint": "eslint src --ext .ts --fix"
+    "knex": "node --no-warnings --loader tsx ./node_modules/knex/bin/cli.js --knexfile ./knexfile.ts",
+    "migrate": "npm run knex -- migrate:make",
+    "lint": "eslint src --ext .ts --fix",
+    "clean": "rm -rf node_modules"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +20,8 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "fastify": "^4.15.0"
+    "fastify": "^4.15.0",
+    "knex": "^2.4.2",
+    "sqlite3": "^5.1.6"
   }
 }
