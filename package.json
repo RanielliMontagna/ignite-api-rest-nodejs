@@ -6,6 +6,7 @@
     "dev": "tsx watch src/server.ts",
     "knex": "node --no-warnings --loader tsx ./node_modules/knex/bin/cli.js --knexfile ./knexfile.ts",
     "migrate": "npm run knex -- migrate:make",
+    "migrate:latest": "npm run knex -- migrate:latest",
     "lint": "eslint src --ext .ts --fix",
     "clean": "rm -rf node_modules"
   },
